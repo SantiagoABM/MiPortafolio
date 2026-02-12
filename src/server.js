@@ -62,19 +62,22 @@ fastify.post('/api/contact', async (request, reply) => {
       await sendConfirmationEmail(email, name);
       return {
         success: true,
-        message: '¡Mensaje enviado correctamente! Te contactaré pronto.',
+        mensaje: '¡Mensaje enviado correctamente! Te contactaré pronto.',
+        datos: null
       };
     } else {
       return reply.status(500).send({
-        error: 'Error al enviar el email',
-        message: 'Hubo un problema al procesar tu mensaje. Intenta más tarde.',
+        success: false,
+        mensaje: 'Hubo un problema al procesar tu mensaje. Intenta más tarde.',
+        datos: null
       });
     }
   } catch (error) {
     fastify.log.error(error);
     return reply.status(500).send({
-      error: 'Error interno del servidor',
-      message: 'Ocurrió un error inesperado. Por favor, intenta más tarde.',
+      success: false,
+      mensaje: 'Ocurrió un error inesperado. Por favor, intenta más tarde.',
+      datos: null
     });
   }
 });
