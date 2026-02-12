@@ -8,7 +8,12 @@
     "dev": "node --watch src/server.js",
     "start": "node src/server.js"
   },
-  "keywords": ["fastify", "nodemailer", "contact-form", "email"],
+  "keywords": [
+    "fastify",
+    "nodemailer",
+    "contact-form",
+    "email"
+  ],
   "author": "",
   "license": "MIT",
   "dependencies": {
@@ -17,7 +22,8 @@
     "@fastify/rate-limit": "^10.1.1",
     "dotenv": "^16.4.7",
     "fastify": "^5.2.0",
-    "nodemailer": "^6.9.16"
+    "nodemailer": "^6.9.16",
+    "resend": "^6.9.2"
   },
   "devDependencies": {
     "@types/node": "^22.10.5"

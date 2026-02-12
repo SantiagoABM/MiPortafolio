@@ -2,7 +2,7 @@ import Fastify from 'fastify';
 import cors from '@fastify/cors';
 import rateLimit from '@fastify/rate-limit';
 import dotenv from 'dotenv';
-import { sendEmail, sendConfirmationEmail } from './services/email.js';
+import { sendEmail } from './services/email-resend.js';
 import { validateContactForm } from './utils/validators.js';
 dotenv.config()
 const fastify = Fastify({
@@ -59,7 +59,7 @@ fastify.post('/api/contact', async (request, reply) => {
     });
 
     if (result.success) {
-      await sendConfirmationEmail(email, name);
+      // await sendConfirmationEmail(email, name);
       return {
         success: true,
         mensaje: '¡Mensaje enviado correctamente! Te contactaré pronto.',
