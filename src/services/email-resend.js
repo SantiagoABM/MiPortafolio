@@ -6,13 +6,13 @@ const resend = new Resend("re_detru7i7_K2YRPQSkfwM5Hnwa4wxm31Zj");
  * Envía un email de contacto usando Resend
  */
 export async function sendEmail({ fromName, fromEmail, message }) {
-  try {
-    const { data, error } = await resend.emails.send({
-      from: 'Portfolio <onboarding@resend.dev>', // Email verificado de Resend
-      to: "barbozamujica109@gmail.com", // Tu email donde recibirás los mensajes
-      replyTo: fromEmail, // Email del usuario para responder
-      subject: `💼 Nuevo mensaje de contacto de ${fromName}`,
-      html: `
+    try {
+        const { data, error } = await resend.emails.send({
+            from: 'Santiago Barboza <barbozamujica109@gmail.com>', // Email verificado de Resend
+            to: "barbozamujica109@gmail.com", // Tu email donde recibirás los mensajes
+            replyTo: fromEmail, // Email del usuario para responder
+            subject: `💼 Nuevo mensaje de contacto de ${fromName}`,
+            html: `
         <!DOCTYPE html>
         <html>
         <head>
@@ -101,17 +101,84 @@ export async function sendEmail({ fromName, fromEmail, message }) {
         </body>
         </html>
       `,
-    });
+        });
 
-    if (error) {
-      console.error('❌ Error de Resend:', error);
-      return { success: false, error: error.message };
+        if (error) {
+            console.error('❌ Error de Resend:', error);
+            return { success: false, error: error.message };
+        }
+
+        console.log('✅ Email enviado con Resend:', data.id);
+        return { success: true, messageId: data.id };
+    } catch (error) {
+        console.error('❌ Error al enviar email:', error);
+        return { success: false, error: error.message };
     }
+}
 
-    console.log('✅ Email enviado con Resend:', data.id);
-    return { success: true, messageId: data.id };
-  } catch (error) {
-    console.error('❌ Error al enviar email:', error);
-    return { success: false, error: error.message };
-  }
+export async function sendConfirmationEmail(toEmail, userName) {
+    try {
+        const { data, error } = await resend.emails.send({
+            from: "barbozamujica109@gmail.com",
+            to: toEmail,
+            subject: '✅ Mensaje recibido - Portafolio de Santiago',
+            html: `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <style>
+            body {
+              font-family: Arial, sans-serif;
+              line-height: 1.6;
+              color: #333;
+            }
+            .container {
+              max-width: 600px;
+              margin: 0 auto;
+              padding: 20px;
+            }
+            .header {
+              background-color: #0969ff;
+              color: white;
+              padding: 20px;
+              border-radius: 8px;
+              text-align: center;
+            }
+            .content {
+              padding: 30px;
+              background-color: #f9f9f9;
+              border-radius: 8px;
+              margin-top: 20px;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <h1>✅ ¡Mensaje Recibido!</h1>
+            </div>
+            <div class="content">
+              <p>Hola ${userName},</p>
+              <p>He recibido tu mensaje y te contactaré pronto.</p>
+              <p>¡Gracias por ponerte en contacto!</p>
+              <br>
+              <p>Saludos,<br>Santiago Alexandre Barboza Mujica</p>
+            </div>
+          </div>
+        </body>
+        </html>
+      `,
+        });
+
+        if (error) {
+            console.error('❌ Error de Resend al enviar confirmación:', error);
+            return { success: false, error: error.message };
+        }
+
+        console.log('✅ Email de confirmación enviado con Resend:', data.id);
+        return { success: true, messageId: data.id };
+    } catch (error) {
+        console.error('❌ Error al enviar confirmación:', error);
+        return { success: false, error: error.message };
+    }
 }
