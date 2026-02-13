@@ -33,7 +33,11 @@ await fastify.register(rateLimit, {
 // ========================================
 
 // Health Check
-fastify.get('/health', async (request, reply) => {
+fastify.get('/health', {
+  config: {
+    rateLimit: false, // Desactivar rate limiting para health check
+  },
+}, async (request, reply) => {
   return { status: 'ok', timestamp: new Date().toISOString() };
 });
 
