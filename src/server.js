@@ -11,7 +11,7 @@ const fastify = Fastify({
 
 // CORS - Permite solicitudes desde tu frontend
 await fastify.register(cors, {
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  origin: process.env.FRONTEND_URL || 'https://tiagodev-azure.vercel.app/',
   credentials: true,
 });
 
@@ -59,7 +59,7 @@ fastify.post('/api/contact', async (request, reply) => {
     });
 
     if (result.success) {
-      await sendConfirmationEmail(email, name);
+      // await sendConfirmationEmail(email, name);
       return {
         success: true,
         mensaje: '¡Mensaje enviado correctamente! Te contactaré pronto.',
