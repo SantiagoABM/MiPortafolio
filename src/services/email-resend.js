@@ -8,7 +8,7 @@ const resend = new Resend("re_detru7i7_K2YRPQSkfwM5Hnwa4wxm31Zj");
 export async function sendEmail({ fromName, fromEmail, message }) {
     try {
         const { data, error } = await resend.emails.send({
-            from: 'Santiago Barboza <barbozamujica109@gmail.com>', // Email verificado de Resend
+            from: 'Portafolio de Santiago <onboarding@resend.dev>', // Email verificado de Resend
             to: "barbozamujica109@gmail.com", // Tu email donde recibirás los mensajes
             replyTo: fromEmail, // Email del usuario para responder
             subject: `💼 Nuevo mensaje de contacto de ${fromName}`,
@@ -115,11 +115,10 @@ export async function sendEmail({ fromName, fromEmail, message }) {
         return { success: false, error: error.message };
     }
 }
-
 export async function sendConfirmationEmail(toEmail, userName) {
     try {
         const { data, error } = await resend.emails.send({
-            from: "barbozamujica109@gmail.com",
+            from: 'Portafolio de Santiago <onboarding@resend.dev>',
             to: toEmail,
             subject: '✅ Mensaje recibido - Portafolio de Santiago',
             html: `
